@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TodoList from './TodoList';
+import TestComponent from './TestComponent';
 import { v4 as uuidv4 } from 'uuid'
 // imoprt TodoList from './TodoList';
 const LOCAL_STORAGE_KEY = 'todoApp.todos'
 let count = 0
+let input = ''
 function App() {
   const [todos, setTodos] = useState([])
   const todoNameRef = useRef()
@@ -39,13 +41,14 @@ function App() {
     setTodos(prevTodo => {
       return [...prevTodo, { id: uuidv4(), name: name, complete: false, myid: count }];
     })
-
+    input = name+ ' Added!'
     todoNameRef.current.value = null
   }
 
   function clearTodo() {
     const newTodos = todos.filter(todo => !todo.complete);
     setTodos(newTodos)
+    input = 'todo Cleared!'
   }
 
   return (
@@ -56,6 +59,9 @@ function App() {
       <button onClick={clearTodo}>Clear</button>
 
       <div>{todos.filter(todo => !todo.complete).length} left</div>
+
+      <h1>test</h1>
+      <TestComponent input={input}/>
       {/* <div>0 left</div> */}
     </>
   );
